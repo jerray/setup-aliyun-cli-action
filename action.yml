@@ -1,0 +1,27 @@
+name: 'Setup Aliyun CLI'
+description: 'Setup Aliyun commandline tool, add it to the PATH and configure authentication'
+inputs:
+  aliyun-cli-version:
+    description: 'Version of aliyun cli'
+    required: true
+  mode:
+    description: 'Authentication mode'
+  region:
+    description: 'Region name of your service, for example: cn-shanghai'
+  access-key-id:
+    description: 'Access key ID of your account, required in AK/StsToken/RamRoleArn mode'
+  access-key-secret:
+    description: 'Secret of the access key'
+  sts-token:
+    description: 'StsToken, required in StsToken mode'
+  ram-role-name:
+    description: 'RAM role name, required in RamRoleArn mode'
+  ram-role-arn:
+    description: 'RAM role arn'
+  role-session-name:
+    description: 'Role session name'
+runs:
+  using: 'node12'
+  main: 'index.js'
+
+
