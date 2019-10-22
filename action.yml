@@ -1,5 +1,5 @@
 name: 'Setup Aliyun CLI'
-description: 'Setup Aliyun commandline tool, add it to the PATH and configure authentication'
+description: 'Setup Aliyun command line tool, add it to the PATH and configure authentication'
 inputs:
   aliyun-cli-version:
     description: 'Version of aliyun cli'
@@ -23,5 +23,3 @@ inputs:
 runs:
   using: 'node12'
   main: 'index.js'
-
-
