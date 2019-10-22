@@ -9,6 +9,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: Install modules
+        run: yarn install
+
       - name: Setup Aliyun CLI
         uses: ./
         with:
