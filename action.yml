@@ -1,5 +1,6 @@
 name: 'Setup Aliyun CLI'
 description: 'Setup Aliyun command line tool, add it to the PATH and configure authentication'
+author: 'jerray'
 inputs:
   aliyun-cli-version:
     description: 'Version of aliyun cli'
@@ -23,3 +24,6 @@ inputs:
 runs:
   using: 'node12'
   main: 'index.js'
+branding:
+  icon: 'cloud-lightning'
+  color: 'orange'
