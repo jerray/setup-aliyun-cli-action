@@ -6,6 +6,7 @@ const os = require('os');
 const name = 'aliyun';
 const platform = os.platform();
 const version = core.getInput('aliyun-cli-version', { required: true });
+const arch = getArch(os.arch());
 
 const configs = [
   { input: 'mode', flag: '--mode' },
@@ -21,6 +22,26 @@ for (const config of configs) {
   config.value = core.getInput(config.input);
 }
 
+function getArch(arch) {
+  // 'arm', 'arm64', 'ia32', 'mips', 'mipsel', 'ppc', 'ppc64', 's390', 's390x', 'x32', and 'x64'.
+
+  // wants amd64, 386, arm64, armv61, ppc641e, s390x
+  // currently not supported by runner but future proofed mapping
+  switch (arch) {
+    case 'x64':
+      arch = 'amd64';
+      break;
+    case 'x32':
+      arch = '386';
+      break;
+    case 'arm':
+      arch = 'armv6l';
+      break;
+  }
+
+  return arch;
+}
+
 async function run() {
   const [system, ext, extractFunc, executable] = (function() { switch(platform) {
     case 'linux':
@@ -33,7 +54,7 @@ async function run() {
       throw new Error(`Unexpected OS ${platform}`);
   }})();
 
-  const url = `https://github.com/aliyun/aliyun-cli/releases/download/v${version}/aliyun-cli-${system}-${version}-amd64.${ext}`;
+  const url = `https://github.com/aliyun/aliyun-cli/releases/download/v${version}/aliyun-cli-${system}-${version}-${arch}.${ext}`;
   const downloadedPath = await tc.downloadTool(url);
   const extractedPath = await tc[extractFunc](downloadedPath);
   const cachedPath = await tc.cacheDir(extractedPath, name, version);
